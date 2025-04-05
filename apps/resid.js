@@ -34,6 +34,7 @@ export class resid extends plugin {
       e,
       e.msg.substring(4).trim()
     )
-    e.reply(JSON.stringify(resp, null, '  '), true)
+    const data = resp?.["2"]?.["2"]?.["1"]?.[0]?.["3"]?.["1"]?.["2"] ?? resp?.["2"]?.["2"]?.["1"]?.["3"]?.["1"]?.["2"] ?? resp
+    e.reply(JSON.stringify(data, null, '  '), true)
   }
 }
