@@ -22,6 +22,8 @@ class Protobuf {
 
   _encode(writer, tag, value) {
     switch (typeof value) {
+      case "undefined":
+        break
       case "number":
         writer.uint32((tag << 3) | 0).int32(value)
         break
@@ -39,6 +41,8 @@ class Protobuf {
           writer.uint32((tag << 3) | 2).bytes(value)
         } else if (Array.isArray(value)) {
           value.forEach(item => this._encode(writer, tag, item))
+        } if (value === null) {
+          break
         } else {
           const nestedBuffer = this.encode(value)
           writer.uint32((tag << 3) | 2).bytes(nestedBuffer)
