@@ -16,6 +16,12 @@ const gunzip = promisify(_gunzip)
 
 const RandomUInt = () => crypto.randomBytes(4).readUInt32BE()
 
+export const protobuf = pb
+
+export const encode = (json) => {
+  return pb.encode(processJSON(json))
+}
+
 export const Send = async (
   e,
   cmd,
@@ -189,10 +195,6 @@ function buildBasePbContent(id, isGroupMsg) {
     }
   }
   return base
-}
-
-function encode(json) {
-  return pb.encode(processJSON(json))
 }
 
 function processJSON(json, path = []) {
