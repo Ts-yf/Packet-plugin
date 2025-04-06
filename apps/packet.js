@@ -1,7 +1,7 @@
 import {
   Elem,
   Long,
-  Raw
+  Send
 } from '../model/PacketHelper.js'
 
 export class sendPacket extends plugin {
@@ -42,7 +42,7 @@ export class sendPacket extends plugin {
 
   async raw(e) {
     let index = e.msg.indexOf("\n")
-    const resp = await Raw(
+    const resp = await Send(
       e,
       e.msg.substring(4, index).trim(),
       e.msg.substring(index).trim()
