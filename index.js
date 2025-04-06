@@ -3,10 +3,13 @@ import {
   pluginName,
   pluginApplications
 } from "./config/constant.js"
+import Packet from './model/PacketHelper.js'
 
 BigInt.prototype.toJSON = function() {
   return this.toString()
 }
+
+global.Packet = Packet
 
 const files = fs.readdirSync(pluginApplications).filter(file => file.endsWith('.js'))
 

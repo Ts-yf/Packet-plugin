@@ -16,6 +16,23 @@ const gunzip = promisify(_gunzip)
 
 const RandomUInt = () => crypto.randomBytes(4).readUInt32BE()
 
+export const Send = async (
+  e,
+  cmd,
+  content
+) => {
+  try {
+    const data = encode(typeof content === 'object' ? content : JSON.parse(content))
+    const req = await e.bot.sendApi('send_packet', {
+      cmd: cmd,
+      data: Buffer.from(data).toString("hex")
+    })
+    return pb.decode(req.data)
+  } catch (error) {
+    logger.error(`sendMessage failed: ${error.message}`, error)
+  }
+}
+
 export const Elem = async (
   e,
   content
@@ -36,31 +53,7 @@ export const Elem = async (
       "5": RandomUInt()
     }
 
-    const data = encode(packet)
-    const req = await e.bot.sendApi('send_packet', {
-      cmd: 'MessageSvc.PbSendMsg',
-      data: Buffer.from(data).toString("hex")
-    })
-    const resp = pb.decode(req.data)
-    //e.reply(JSON.stringify(resp, null, '  '))
-  } catch (error) {
-    logger.error(`sendMessage failed: ${error.message}`, error)
-  }
-}
-
-export const Raw = async (
-  e,
-  cmd,
-  content
-) => {
-  try {
-    const data = encode(typeof content === 'object' ? content : JSON.parse(content))
-    const req = await e.bot.sendApi('send_packet', {
-      cmd: cmd,
-      data: Buffer.from(data).toString("hex")
-    })
-    const resp = pb.decode(req.data)
-    e.reply(JSON.stringify(resp, null, '  '))
+    return Send(e, 'MessageSvc.PbSendMsg', packet)
   } catch (error) {
     logger.error(`sendMessage failed: ${error.message}`, error)
   }
@@ -84,7 +77,7 @@ export const Long = async (
         }
       }
     }
-    Elem(e, elem)
+    return Elem(e, elem)
   } catch (error) {
     logger.error(`sendMessage failed: ${error.message}`, error)
   }
@@ -128,12 +121,7 @@ export const sendLong = async (
     }
   }
 
-  const final = encode(packet)
-  const req = await e.bot.sendApi('send_packet', {
-    cmd: 'trpc.group.long_msg_interface.MsgService.SsoSendLongMsg',
-    data: Buffer.from(final).toString("hex")
-  })
-  const resp = pb.decode(req.data)
+  const resp = await Send(e, 'trpc.group.long_msg_interface.MsgService.SsoSendLongMsg', packet)
   return resp?.["2"]?.["3"]
 }
 
@@ -154,12 +142,7 @@ export const recvLong = async (
     }
   }
 
-  const data = encode(packet)
-  const req = await e.bot.sendApi('send_packet', {
-    cmd: 'trpc.group.long_msg_interface.MsgService.SsoRecvLongMsg',
-    data: Buffer.from(data).toString("hex")
-  })
-  const resp = pb.decode(req.data)
+  const resp = await Send(e, 'trpc.group.long_msg_interface.MsgService.SsoRecvLongMsg', packet)
   return pb.decode(await gunzip(resp?.["1"]?.["4"]))
 }
 
@@ -181,12 +164,8 @@ export const getMsg = async (
     },
     "2": true
   }
-  const data = encode(packet)
-  const req = await e.bot.sendApi('send_packet', {
-    cmd: 'trpc.msg.register_proxy.RegisterProxy.SsoGetGroupMsg',
-    data: Buffer.from(data).toString("hex")
-  })
-  return pb.decode(req.data)
+
+  return Send(e, 'trpc.msg.register_proxy.RegisterProxy.SsoGetGroupMsg', packet)
 }
 
 function buildBasePbContent(id, isGroupMsg) {

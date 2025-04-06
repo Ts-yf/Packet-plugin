@@ -2,6 +2,7 @@ import {
   sendLong,
   recvLong
 } from '../model/PacketHelper.js'
+import { makeForwardMsg } from '../../../lib/common/common.js'
 
 export class resid extends plugin {
   constructor() {
@@ -26,7 +27,20 @@ export class resid extends plugin {
       e,
       e.msg.substring(4).trim()
     )
-    e.reply(resid, true)
+    const packet = {
+      "37": {
+        "6": 1,
+        "7": resid,
+        "17": 0,
+        "19": {
+          "15": 0,
+          "31": 0,
+          "41": 0
+        }
+      }
+    }
+    const msg = await makeForwardMsg(e, [resid, JSON.stringify(packet, null, '  ')])
+    e.reply(msg)
   }
 
   async recv(e) {
@@ -35,6 +49,7 @@ export class resid extends plugin {
       e.msg.substring(4).trim()
     )
     const data = resp?.["2"]?.["2"]?.["1"]?.[0]?.["3"]?.["1"]?.["2"] ?? resp?.["2"]?.["2"]?.["1"]?.["3"]?.["1"]?.["2"] ?? resp
-    e.reply(JSON.stringify(data, null, '  '), true)
+    const msg = await makeForwardMsg(e, JSON.stringify(data, null, '  '))
+    e.reply(msg)
   }
 }

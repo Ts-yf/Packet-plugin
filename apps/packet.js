@@ -42,10 +42,11 @@ export class sendPacket extends plugin {
 
   async raw(e) {
     let index = e.msg.indexOf("\n")
-    Raw(
+    const resp = await Raw(
       e,
       e.msg.substring(4, index).trim(),
       e.msg.substring(index).trim()
     )
+    e.reply(JSON.stringify(resp, null, '  '))
   }
 }
