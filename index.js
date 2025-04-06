@@ -3,7 +3,7 @@ import {
   pluginName,
   pluginApplications
 } from "./config/constant.js"
-import Packet from './model/PacketHelper.js'
+import * as Packet from './model/PacketHelper.js'
 
 BigInt.prototype.toJSON = function() {
   return this.toString()
