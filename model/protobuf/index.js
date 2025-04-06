@@ -41,7 +41,7 @@ class Protobuf {
           writer.uint32((tag << 3) | 2).bytes(value)
         } else if (Array.isArray(value)) {
           value.forEach(item => this._encode(writer, tag, item))
-        } if (value === null) {
+        } else if (value === null) {
           break
         } else {
           const nestedBuffer = this.encode(value)
