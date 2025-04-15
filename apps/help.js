@@ -16,8 +16,8 @@ const helpPath = path.join(pluginResources, "help")
 export class help extends plugin {
   constructor() {
     super({
-      name: '[推送插件]帮助',
-      dsc: '推送帮助',
+      name: '[packet插件]帮助',
+      dsc: '帮助',
       event: 'message',
       priority: 100,
       rule: [{

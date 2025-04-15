@@ -16,7 +16,11 @@ const gunzip = promisify(_gunzip)
 
 const RandomUInt = () => crypto.randomBytes(4).readUInt32BE()
 
-export const protobuf = pb
+BigInt.prototype.toJSON = function() {
+  return this.toString()
+}
+
+export const Proto = pb
 
 export const encode = (json) => {
   return pb.encode(processJSON(json))
