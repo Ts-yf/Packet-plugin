@@ -1,7 +1,8 @@
 import {
   Elem,
   Long,
-  Send
+  Send,
+  replacer
 } from '../model/PacketHelper.js'
 
 export class sendPacket extends plugin {
@@ -47,6 +48,6 @@ export class sendPacket extends plugin {
       e.msg.substring(4, index).trim(),
       e.msg.substring(index).trim()
     )
-    e.reply(JSON.stringify(resp, null, '  '))
+    e.reply(JSON.stringify(resp, replacer, '  '))
   }
 }

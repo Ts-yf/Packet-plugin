@@ -1,6 +1,7 @@
 import {
   sendLong,
-  recvLong
+  recvLong,
+  replacer
 } from '../model/PacketHelper.js'
 import common from '../../../lib/common/common.js'
 
@@ -39,7 +40,7 @@ export class resid extends plugin {
         }
       }
     }
-    const msg = await common.makeForwardMsg(e, [resid, JSON.stringify(packet, null, '  ')])
+    const msg = await common.makeForwardMsg(e, [resid, JSON.stringify(packet, replacer, '  ')])
     e.reply(msg)
   }
 
@@ -49,7 +50,7 @@ export class resid extends plugin {
       e.msg.substring(4).trim()
     )
     const data = resp?.["2"]?.["2"]?.["1"]?.[0]?.["3"]?.["1"]?.["2"] ?? resp?.["2"]?.["2"]?.["1"]?.["3"]?.["1"]?.["2"] ?? resp
-    const msg = await common.makeForwardMsg(e, JSON.stringify(data, null, '  '))
+    const msg = await common.makeForwardMsg(e, JSON.stringify(data, replacer, '  '))
     e.reply(msg)
   }
 }

@@ -1,5 +1,6 @@
 import {
-  getMsg as get
+  getMsg as get,
+  replacer
 } from '../model/PacketHelper.js'
 import common from '../../../lib/common/common.js'
 
@@ -25,9 +26,9 @@ export class getMsg extends plugin {
     )
     const msg = [
       "pb(elem):",
-      JSON.stringify(data["3"]["6"]["3"]["1"]["2"][0], null, '  '),
+      JSON.stringify(data["3"]["6"]["3"]["1"]["2"][0], replacer, '  '),
       "pb(raw):",
-      JSON.stringify(data, null, '  ')
+      JSON.stringify(data, replacer, '  ')
     ]
     e.reply(await common.makeForwardMsg(e, msg))
   }
