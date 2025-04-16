@@ -20,7 +20,7 @@ pnpm install
 (还没写)
 
 ## 衍生插件/JS分享
-请参考 [贡献指南](./CONTRIBUTING.md) 向此仓库发起 Pull Request  
+建议请参考 [贡献指南](./CONTRIBUTING.md) 向此仓库发起 Pull Request  
 
 [>>>点击此处跳转<<<](./Plugin.md)
 

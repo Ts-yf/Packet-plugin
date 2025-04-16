@@ -48,15 +48,20 @@ export const Elem = async (
   content
 ) => {
   try {
-    let packet = buildBasePbContent(e.isGroup ? e.group_id : e.user_id, e.isGroup)
-    const parsed = typeof content === 'object' ? content : JSON.parse(content)
-    const elements = Array.isArray(parsed) ? parsed : [parsed]
-
-    packet = {
-      ...packet,
+    const packet = {
+      "1": {
+        [e.isGroup ? "2" : "1"]: {
+          "1": e.isGroup ? e.group_id : e.user_id
+        }
+      },
+      "2": {
+        "1": 1,
+        "2": 0,
+        "3": 0
+      },
       "3": {
         "1": {
-          "2": elements
+          "2": typeof content === 'object' ? content : JSON.parse(content)
         }
       },
       "4": RandomUInt(),
@@ -176,29 +181,6 @@ export const getMsg = async (
   }
 
   return Send(e, 'trpc.msg.register_proxy.RegisterProxy.SsoGetGroupMsg', packet)
-}
-
-function buildBasePbContent(id, isGroupMsg) {
-  const base = {
-    "1": {
-      [isGroupMsg ? "2" : "1"]: isGroupMsg ? {
-        "1": id
-      } : {
-        "1": id
-      }
-    },
-    "2": {
-      "1": 1,
-      "2": 0,
-      "3": 0
-    },
-    "3": {
-      "1": {
-        "2": []
-      }
-    }
-  }
-  return base
 }
 
 function processJSON(json, path = []) {
