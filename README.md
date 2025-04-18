@@ -1,5 +1,7 @@
 # Packet-plugin
 
+***NOTE: 本插件仅支持以OneBot协议对接NapCat的Bot***
+
 ## 介绍
 
 - **为对接NapCat.OneBot的BOT提供发送ProtoBuf包的能力**
@@ -17,7 +19,7 @@ pnpm install
 ```
 
 ## 文档
-(还没写)
+[>>>点击此处跳转<<<](./Doc.md)
 
 ## 衍生插件/JS分享
 建议请参考 [贡献指南](./CONTRIBUTING.md) 向此仓库发起 Pull Request  
