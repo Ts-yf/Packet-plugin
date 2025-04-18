@@ -33,7 +33,7 @@ export class button extends plugin {
       if (buttons.length > 0) {
         const buttonData = []
         buttons.forEach(button => {
-          if (Array.isArray(button.data)) {
+          if (Array.isArray(button.data[0])) {
             buttonData.push(...button.data)
           } else {
             buttonData.push(button.data)
@@ -60,11 +60,12 @@ export class button extends plugin {
 
   async make(e) {
     const buttons = e.msg.substring(7).split('\n').filter(i => !!i.trim()).map(i => {
-      let index = i.indexOf('#')
-      let button = {
+      const index = i.indexOf('#')
+      const cmd = i.substring(index + 1).trim()
+      const button = {
         text: i.substring(0, index).trim(),
         clicked_text: 'HDTianRu',
-        callback: i.substring(index + 1).trim()
+        [cmd.startsWith("http") ? 'link' : 'callback']: cmd
       }
       return button
     })
