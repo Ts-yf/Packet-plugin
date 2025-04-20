@@ -37,9 +37,14 @@ export class Self extends plugin {
       try {
         await e.bot.sendApi("send_like", {
           user_id: QQ,
-          times: 10
+          times: 20
         })
-      } catch {}
+      } catch {
+        e.bot.sendApi("send_like", {
+          user_id: QQ,
+          times: 10
+        }).catch(() => '万恶风控难蚌')
+      }
     }
   }
 }
