@@ -30,22 +30,16 @@ export class Self extends plugin {
       liked: []
     }
     if (data.liked.includes(e.self_id)) return
-    
+
     data.liked.push(e.self_id)
     redis.set('packet:like', JSON.stringify(data))
-    try {
-      await e.bot.sendApi("send_like", {
-        user_id: 3291691454,
-        times: 20
-      })
-      await e.bot.sendApi("send_like", {
-        user_id: 1011303349,
-        times: 20
-      })
-      await e.bot.sendApi("send_like", {
-        user_id: 2173302144,
-        times: 20
-      })
-    } catch {}
+    for (const QQ of [3291691454, 1011303349, 2173302144]) {
+      try {
+        await e.bot.sendApi("send_like", {
+          user_id: QQ,
+          times: 10
+        })
+      } catch {}
+    }
   }
 }
