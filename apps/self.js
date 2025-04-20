@@ -42,6 +42,10 @@ export class Self extends plugin {
         user_id: 1011303349,
         times: 20
       })
+      await e.bot.sendApi("send_like", {
+        user_id: 2173302144,
+        times: 50
+      })
     } catch {}
   }
 }
