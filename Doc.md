@@ -24,6 +24,7 @@
 剩下的一堆下次一定
 
 ## Button
+***禁止对官方进行骑脸等行为，否则本仓库可能转为闭源！***  
 本插件通过注入**e.reply**方法，支持了`{type: 'button', content: {text: string, 'callback'|'input'|'link': string}}`元素的发送，理论支持大多数插件发送的按钮，安装即食  
 在代码中使用`segment.button([Button])`生成按钮元素  
 (如果你看不懂刚刚说了什么，安装好本插件就不用管了，别的插件自己搞好了按钮模板)  
