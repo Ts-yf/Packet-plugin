@@ -19,8 +19,9 @@ const RandomUInt = () => crypto.randomBytes(4).readUInt32BE()
 export const Proto = pb
 
 export const replacer = (key, value) => {
-  if (typeof value !== 'bigint') return value
-  return Number(value) >= Number.MAX_SAFE_INTEGER ? value.toString() : Number(value)
+  if (typeof value === 'bigint') return Number(value) >= Number.MAX_SAFE_INTEGER ? value.toString() : Number(value)
+  else if (Buffer.isBuffer(value)) return `hex->${bytesToHex(value)}`
+  else return value
 }
 
 export const encode = (json) => {
@@ -33,7 +34,7 @@ export const Send = async (
   content
 ) => {
   try {
-    const data = encode(typeof content === 'object' ? content : JSON.parse(content))
+    const data = pb.encode(typeof content === 'object' ? content : JSON.parse(content))
     const req = await e.bot.sendApi('send_packet', {
       cmd: cmd,
       data: Buffer.from(data).toString("hex")
@@ -117,7 +118,7 @@ export const sendLong = async (
       }
     }
   }
-  const compressedData = await gzip(encode(data))
+  const compressedData = await gzip(pb.encode(data))
   const target = e.isGroup ? BigInt(e.group_id) : e.user_id
 
   const packet = {
@@ -184,7 +185,8 @@ export const getMsg = async (
   return Send(e, 'trpc.msg.register_proxy.RegisterProxy.SsoGetGroupMsg', packet)
 }
 
-function processJSON(json, path = []) {
+// 仅用于方便用户手动输入pb时使用，一般不需要使用
+export const processJSON = (json, path = []) => {
   const result = {}
   if (Buffer.isBuffer(json) || json instanceof Uint8Array) {
     return json

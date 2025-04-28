@@ -48,6 +48,6 @@ export class sendPacket extends plugin {
       e.msg.substring(4, index).trim(),
       e.msg.substring(index).trim()
     )
-    e.reply(JSON.stringify(resp, replacer, '  '))
+    e.reply(JSON.stringify(resp, replacer, 2))
   }
 }
