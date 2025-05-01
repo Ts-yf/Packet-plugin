@@ -2,6 +2,7 @@ import {
   Elem,
   Long,
   Send,
+  processJSON,
   replacer
 } from '../model/PacketHelper.js'
 
@@ -30,14 +31,14 @@ export class sendPacket extends plugin {
   async pb(e) {
     Elem(
       e,
-      e.msg.substring(3).trim()
+      processJSON(JSON.parse(e.msg.substring(3).trim()))
     )
   }
 
   async pbl(e) {
     Long(
       e,
-      e.msg.substring(4).trim()
+      processJSON(JSON.parse(e.msg.substring(4).trim()))
     )
   }
 
@@ -46,7 +47,7 @@ export class sendPacket extends plugin {
     const resp = await Send(
       e,
       e.msg.substring(4, index).trim(),
-      e.msg.substring(index).trim()
+      processJSON(JSON.parse(e.msg.substring(index).trim()))
     )
     e.reply(JSON.stringify(resp, replacer, 2))
   }
