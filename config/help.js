@@ -36,7 +36,7 @@ export const helpList = [{
     },  
     {  
       icon: 72,  
-      title: '#raw[命令]\n[JSON]',  
+      title: '#raw[命令]\\n[JSON]',  
       desc: '发送自定义命令并返回响应'  
     }]  
 }, {  
