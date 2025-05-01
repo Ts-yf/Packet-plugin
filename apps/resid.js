@@ -40,17 +40,24 @@ export class resid extends plugin {
         }
       }
     }
-    const msg = await common.makeForwardMsg(e, [resid, JSON.stringify(packet, replacer, '  ')])
+    const msg = await common.makeForwardMsg(e, [resid, JSON.stringify(packet, replacer, 2)])
     e.reply(msg)
   }
 
   async recv(e) {
+    let resid = e.msg
+    try {
+      const packet = JSON.parse(e.msg)
+      resid = packet?.["37"]?.["7"] ?? e.msg
+    } catch (e) {
+      /*do nth*/
+    }
     const resp = await recvLong(
       e,
       e.msg.substring(4).trim()
     )
     const data = resp?.["2"]?.["2"]?.["1"]?.[0]?.["3"]?.["1"]?.["2"] ?? resp?.["2"]?.["2"]?.["1"]?.["3"]?.["1"]?.["2"] ?? resp
-    const msg = await common.makeForwardMsg(e, JSON.stringify(data, replacer, '  '))
+    const msg = await common.makeForwardMsg(e, JSON.stringify(data, replacer, 2))
     e.reply(msg)
   }
 }

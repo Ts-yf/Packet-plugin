@@ -26,9 +26,9 @@ export class getMsg extends plugin {
     )
     const msg = [
       "pb(elem):",
-      JSON.stringify(data["3"]["6"]["3"]["1"]["2"][0], replacer, '  '),
+      JSON.stringify(data["3"]["6"]["3"]["1"]["2"][0], replacer, 2),
       "pb(raw):",
-      JSON.stringify(data, replacer, '  ')
+      JSON.stringify(data, replacer, 2)
     ]
     e.reply(await common.makeForwardMsg(e, msg))
   }

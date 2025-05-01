@@ -31,14 +31,14 @@ export class sendPacket extends plugin {
   async pb(e) {
     Elem(
       e,
-      processJSON(JSON.parse(e.msg.substring(3).trim()))
+      processJSON(e.msg.substring(3).trim())
     )
   }
 
   async pbl(e) {
     Long(
       e,
-      processJSON(JSON.parse(e.msg.substring(4).trim()))
+      processJSON(e.msg.substring(4).trim())
     )
   }
 
@@ -47,7 +47,7 @@ export class sendPacket extends plugin {
     const resp = await Send(
       e,
       e.msg.substring(4, index).trim(),
-      processJSON(JSON.parse(e.msg.substring(index).trim()))
+      processJSON(e.msg.substring(index).trim())
     )
     e.reply(JSON.stringify(resp, replacer, 2))
   }

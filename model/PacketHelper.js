@@ -186,7 +186,9 @@ export const getMsg = async (
 }
 
 // 仅用于方便用户手动输入pb时使用，一般不需要使用
-export const processJSON = (json, path = []) => {
+export const processJSON = (json) => _processJSON(typeof json === 'string' ? JSON.parse(json) : json)
+
+function _processJSON(json, path = []){
   const result = {}
   if (Buffer.isBuffer(json) || json instanceof Uint8Array) {
     return json
