@@ -13,14 +13,14 @@
 | 属性 | 值 | 说明 |  
 | - | - | - |  
 | Proto | [Proto](#Proto) | |  
-| replacer | 用于JSON.stringify处理BigInt和Buffer值 | |  
+| replacer | arrow function(k, v) | 用于JSON.stringify处理BigInt和Buffer值 |  
   
 | 方法 | 参数 | 说明 |  
 | - | - | - |  
-| Send | e, cmd, packet(JSON) | 发送Raw Packet |  
-| Elem | e, packet(JSON) | 发送消息元素 |  
-| Long | e, packet(JSON) | 以longmsg方式发送消息元素 |  
-| sendLong | e, content | 上传长消息并返回资源ID |  
+| Send | e, cmd, packet | 发送Raw Packet |  
+| Elem | e, packet | 发送消息元素 |  
+| Long | e, packet | 以longmsg方式发送消息元素 |  
+| sendLong | e, packet | 上传长消息并返回resid |  
 | recvLong | e, resid | 获取长消息内容 |  
 | getMsg | e, message_id, isSeq | 通过消息ID获取消息内容 |  
 | processJSON | json | 仅用于方便用户手动输入pb时使用，一般不使用 |  

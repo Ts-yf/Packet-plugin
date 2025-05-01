@@ -16,7 +16,7 @@ export class resid extends plugin {
         fnc: "send",
         permission: "master"
       }, {
-        reg: "^#取id\\s*\\S*",
+        reg: "^#取id[\\s\\S]*",
         fnc: "recv",
         permission: "master"
       }]
