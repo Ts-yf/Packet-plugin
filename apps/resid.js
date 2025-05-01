@@ -45,16 +45,16 @@ export class resid extends plugin {
   }
 
   async recv(e) {
-    let resid = e.msg
+    let resid = e.msg.substring(4).trim()
     try {
       const packet = JSON.parse(e.msg)
-      resid = packet?.["37"]?.["7"] ?? e.msg
+      resid = packet?.["37"]?.["7"] ?? resid
     } catch (e) {
       /*do nth*/
     }
     const resp = await recvLong(
       e,
-      e.msg.substring(4).trim()
+      resid
     )
     const data = resp?.["2"]?.["2"]?.["1"]?.[0]?.["3"]?.["1"]?.["2"] ?? resp?.["2"]?.["2"]?.["1"]?.["3"]?.["1"]?.["2"] ?? resp
     const msg = await common.makeForwardMsg(e, JSON.stringify(data, replacer, 2))
