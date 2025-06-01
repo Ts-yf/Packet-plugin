@@ -35,6 +35,10 @@ export class button extends plugin {
         buttons.forEach(button => {
           if (Array.isArray(button.data[0])) {
             buttonData.push(...button.data)
+          } else if (button.rows) {
+            const packet = this.button(button)
+            Elem(e, packet)
+            return _reply(msg, ...other)
           } else {
             buttonData.push(button.data)
           }
@@ -44,7 +48,8 @@ export class button extends plugin {
           callback: SPECIAL
         }])
         const data = {
-          rows: this.makeButtons(buttonData)
+          rows: this.makeButtons(buttonData),
+          appid: 102089849
         }
         const packet = this.button(data)
         Elem(e, packet)
@@ -59,7 +64,7 @@ export class button extends plugin {
   }
 
   async make(e) {
-    const buttons = e.msg.substring(7).split('\n').filter(i => !!i.trim()).map(i => {
+    const buttons = e.msg.substring(7).split('\n').filter(Boolean).map(i => {
       const index = i.indexOf('#')
       const cmd = i.substring(index + 1).trim()
       const button = {
@@ -93,8 +98,7 @@ export class button extends plugin {
         visited_label: button.clicked_text,
         style,
         ...button.QQBot?.render_data,
-      },
-      appid: 102089849
+      }
     }
 
     if (button.link)
@@ -149,8 +153,7 @@ export class button extends plugin {
     return msgs
   }
 
-  button(elem) {
-    const content = elem
+  button(content) {
     const _content = {
       1: {
         1: content.rows.map(row => {
