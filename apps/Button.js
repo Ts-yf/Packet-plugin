@@ -27,7 +27,7 @@ export class button extends plugin {
 
   async accept(e) {
     const _reply = e.reply
-    if (e.bot.version.app_name === 'NapCat.Onebot') e.reply = async (msg, ...other) => {
+    if (e.bot?.version?.app_name === 'NapCat.Onebot') e.reply = async (msg, ...other) => {
       const buttons = (Array.isArray(msg) ? msg : [msg]).filter(i => i.type == "button")
 
       if (buttons.length > 0) {
