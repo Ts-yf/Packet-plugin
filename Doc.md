@@ -31,11 +31,11 @@
 | encode | json | 将JSON编码为Protocol Buffer二进制数据 |  
 | decode | buffer | 将Protocol Buffer二进制数据解码为JSON |  
 
-## Button
-***禁止对官方进行骑脸等行为，否则本仓库可能转为闭源！***  
-本插件通过注入**e.reply**方法，支持了`{type: 'button', content: {text: string, 'callback'|'input'|'link': string}}`元素的发送，理论支持大多数插件发送的按钮，安装即食  
-在代码中使用`segment.button([Button])`生成按钮元素  
-e.g.  
+## ~~Button~~  (R.I.P.)
+***~~禁止对官方进行骑脸等行为，否则本仓库可能转为闭源！~~***  
+~~本插件通过注入**e.reply**方法，支持了`{type: 'button', content: {text: string, 'callback'|'input'|'link': string}}`元素的发送，理论支持大多数插件发送的按钮，安装即食~~  
+~~在代码中使用`segment.button([Button])`生成按钮元素~~  
+~~e.g.~~  
 ```javascript
 const buttons = [  
   segment.button([{ text: "点我", callback: "我是小南梁" }, { text: "不要点我", callback: "我是笨蛋" }]),
@@ -47,5 +47,5 @@ await e.reply([
   ...buttons
 ])
 ```
-(如果你看不懂刚刚说了什么，安装好本插件就不用管了，别的插件自己搞好了按钮模板)  
-(不要过于依赖，早晚会被腾讯修的)
+~~(如果你看不懂刚刚说了什么，安装好本插件就不用管了，别的插件自己搞好了按钮模板)~~  
+~~(不要过于依赖，早晚会被腾讯修的)~~
