@@ -28,7 +28,7 @@ class Protobuf {
         writer.uint32((tag << 3) | 0).int32(value)
         break
       case "bigint":
-        writer.uint32((tag << 3) | 0).int64(value)
+        writer.uint32((tag << 3) | 0).int64(value.toString())
         break
       case "string":
         writer.uint32((tag << 3) | 2).string(value)
