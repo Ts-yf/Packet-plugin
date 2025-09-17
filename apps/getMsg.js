@@ -11,7 +11,7 @@ export class getMsg extends plugin {
       event: "message",
       priority: 1000,
       rule: [{
-        reg: "^#?取$",
+        reg: "^~?取$",
         fnc: "get",
         permission: "master"
       }]
@@ -22,7 +22,7 @@ export class getMsg extends plugin {
     if (!e.reply_id) return e.reply("请回复要取的消息")
     const data = await get(
       e,
-      e.reply_id
+      e.reply_id, true
     )
     const msg = [
       "pb(elem):",

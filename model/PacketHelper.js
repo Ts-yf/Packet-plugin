@@ -41,11 +41,14 @@ export const Send = async (
 ) => {
   try {
     const data = pb.encode(typeof content === 'object' ? content : JSON.parse(content))
-    const req = await e.bot.sendApi('send_packet', {
+    let action = (e.bot?.version?.app_name === 'Lagrange.OneBot') ? '.send_packet' : 'send_packet';
+    const req = await e.bot.sendApi(action, {
       cmd: cmd,
+      command: cmd,
       data: Buffer.from(data).toString("hex")
     })
-    return pb.decode(req.data)
+    let req_data = req.data.result || req.data;
+    return pb.decode(req_data)
   } catch (error) {
     logger.error(`sendMessage failed: ${error.message}`, error)
   }

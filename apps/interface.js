@@ -13,6 +13,7 @@ export class Interface extends plugin {
 
   async accept(e) {
     if (e.bot?.version?.app_name === 'NapCat.Onebot') e.Packet = Packet
+    if (e.bot?.version?.app_name === 'Lagrange.Onebot') e.Packet = Packet
     /*new Proxy(Packet, {
       
     })*/

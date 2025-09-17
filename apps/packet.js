@@ -13,15 +13,15 @@ export class sendPacket extends plugin {
       event: "message",
       priority: 1000,
       rule: [{
-        reg: "^#(pb|PB)\\s*{.*",
+        reg: "^~(pb|PB)\\s*{.*",
         fnc: "pb",
         permission: "master"
       }, {
-        reg: "^#(pbl|PBL)\\s*{.*",
+        reg: "^~(pbl|PBL)\\s*{.*",
         fnc: "pbl",
         permission: "master"
       }, {
-        reg: "^#(raw|RAW)[\\s\\S]*{.*",
+        reg: "^~(raw|RAW)[\\s\\S]*{.*",
         fnc: "raw",
         permission: "master"
       }]
