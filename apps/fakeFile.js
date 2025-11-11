@@ -21,14 +21,14 @@ const sizeToBytes = size => {
     'e': 1024n ** 6n,
   }
 
-  const match = size.toLowerCase().match(/^(\d+)([bkmgtpe]{0,2})$/)
+  const match = size.toLowerCase().match(/^(\d+(?:\.\d+)?)([bkmgtpe]{0,1})b?$/)
   if (!match) {
     return MAX_VALUE
   }
   const [, numericPart, unitPart] = match
   let num
   try {
-    num = BigInt(numericPart)
+    num = BigInt(Math.floor(Number(numericPart)))
   } catch (error) {
     return MAX_VALUE
   }
@@ -53,7 +53,7 @@ export class fakeFile extends plugin {
       rule: [{
         reg: "^#文件.*",
         fnc: "make",
-        permission: "master",
+        permission: "master"
       }]
     })
   }

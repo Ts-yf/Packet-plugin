@@ -13,6 +13,10 @@ export class sendPacket extends plugin {
       event: "message",
       priority: 1000,
       rule: [{
+        reg: "^~(api|API)[\\s\\S]*{.*",
+        fnc: "api",
+        permission: "master"
+      }, {
         reg: "^~(pb|PB)\\s*{.*",
         fnc: "pb",
         permission: "master"
@@ -26,6 +30,14 @@ export class sendPacket extends plugin {
         permission: "master"
       }]
     })
+  }
+  async api(e) {
+    let index = e.msg.indexOf("\n")
+    const resp = await e.bot.sendApi(
+      e.msg.substring(4, index).trim(),
+      JSON.parse(e.msg.substring(index).trim())
+    )
+    e.reply(JSON.stringify(resp, null, 2))
   }
 
   async pb(e) {
